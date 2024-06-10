@@ -28,11 +28,46 @@
 
     function doNothing() {
         global $url_blank;
-
+    
         if(strlen($url_blank) > 0) {
             header("Location: $url_blank");
+            exit; // Make sure to exit after redirecting
         } else {
-            error("Nothing to do.");
+            if(isset($_POST['url']) && !empty($_POST['url'])) {
+                $url = $_POST['url'];
+                $currentDomain = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+                $currentDomain .= "://$_SERVER[HTTP_HOST]";
+                header("Location: $currentDomain/$url");
+                exit;
+            } else {
+                // Show URL shortener form
+                echo '
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>URL Shortener</title>
+                    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+                </head>
+                <body>
+                    <div class="container mt-5">
+                        <h2>URL Shortener</h2>
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <label for="url">Enter URL:</label>
+                                <input type="text" class="form-control" id="url" name="url" placeholder="Enter URL to shorten">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Shorten URL</button>
+                        </form>
+                    </div>
+                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+                </body>
+                </html>
+                ';
+            }
         }
     }
 
