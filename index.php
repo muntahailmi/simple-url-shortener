@@ -51,6 +51,7 @@
                     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
                 </head>
                 <body>
+                    <img src="images/image.jpg" alt="My Image">
                     <div class="container mt-5">
                         <h2>URL Shortener</h2>
                         <form action="" method="post">
