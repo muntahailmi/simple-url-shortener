@@ -27,5 +27,7 @@ mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -D "$DB_NAME" < /var/ww
 # Update the config.php file with database credentials
 sed -i "s|\$dbhost = ''|\$dbhost = '$DB_HOST'|; s|\$dbuser = ''|\$dbuser = '$DB_USER'|; s|\$dbpass = ''|\$dbpass = '$DB_PASSWORD'|; s|\$dbname = ''|\$dbname = '$DB_NAME'|" /var/www/html/config.php
 
+systemctl restart apache2
+
 # Start Apache in the foreground
 apache2ctl -D FOREGROUND
