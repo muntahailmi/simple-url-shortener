@@ -19,6 +19,8 @@ DB_USER="admin"
 REMOTE_SCHEMA="/tmp/remote_schema.sql"
 LOCAL_SCHEMA="/tmp/local_schema.sql"
 
+SQL_FILE="/var/www/html/database.sql"
+
 # Wait for MySQL to be ready
 until mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -e "SELECT 1"; do
     echo "Waiting for MySQL to be ready..."
