@@ -11,6 +11,7 @@ CREATE TABLE `links` (
   `visits` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `last_visited` datetime DEFAULT NULL,
+  `ip` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
