@@ -29,7 +29,6 @@ RUN echo "#!/bin/bash\n" \
          "sed -i \"s|\\\$dbhost = '';|\\\$dbhost = '\${DB_HOST}';|; s|\\\$dbuser = '';|\\\$dbuser = '\${DB_USER}';|; s|\\\$dbpass = '';|\\\$dbpass = '\${DB_PASS}';|; s|\\\$dbname = '';|\\\$dbname = '\${DB_NAME}';|\" /var/www/html/config.php\n" \
          "\n" > /init-container.sh
 RUN chmod +x /init-container.sh
-
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Expose port 80
