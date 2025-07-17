@@ -1,5 +1,5 @@
 # simple-url-shortener
-Pretty much the simplest URL shortening service possible. It's simple, fast, opinionated, keeps track of click-thru stats, and does everything I need. It's all self-contained in a single PHP script (and .htaccess file). No dependencies, no frameworks to install, etc. Just upload the file to your web server and you're done. Maybe you'll find it useful too.
+Pretty much the simplest URL shortening service possible. It's simple, fast, opinionated, keeps track of click-thru stats, and does everything I need. It's all self-contained in a single PHP script (and .htaccess file). No dependencies, no frameworks to install, etc. Just upload the file to your web server and you're done. Maybe you'll find it useful, too.
 
 **Motivation:** I run [a small software company](https://tyler.gd/67wn3
 ) which sells macOS and iOS software. Part of my day-to-day in running the business is replying to customer support questions - over email and, sometimes, SMS/chat. I often need to reply to my customers with long URLs to support documents or supply them with custom-URL-scheme links which they can click on to deep-link them into a specific area of an app.
