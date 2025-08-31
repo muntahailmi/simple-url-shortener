@@ -55,7 +55,7 @@
                         <img src="images/image.jpg" style="width: 100%; position: absolute; top: 0; left: 0;">
                     </div>
                     <div class="container mt-5">
-                        <h2>URL Portener</h2>
+                        <h2>URL Portener 2.0.0</h2>
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="url">Enter URL:</label>
