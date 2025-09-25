@@ -10,10 +10,10 @@ sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Connect and setup database credentials
-DB_PASSWORD="{DB_PASS}"
-DB_HOST="{DB_HOST}"
-DB_NAME="{DB_NAME}"
-DB_USER="admin"
+DB_PASSWORD="${DB_PASS}"
+DB_HOST="${DB_HOST}"
+DB_NAME="${DB_NAME}"
+DB_USER="${DB_USER}"
 
 # Temporary files
 REMOTE_SCHEMA="/tmp/remote_schema.sql"
