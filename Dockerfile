@@ -35,4 +35,4 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 EXPOSE 80
 
 # Run initialization script and then start Apache
-CMD ["/bin/bash", "-c", "/init-container.sh && apache2ctl -D FOREGROUND"]
+CMD ["/bin/bash", "-c", "/startup.sh && apache2ctl -D FOREGROUND"]
