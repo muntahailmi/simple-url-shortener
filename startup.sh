@@ -40,7 +40,7 @@ done
 # Extract the local database schema
 grep -E "^CREATE TABLE" $SQL_FILE | while read -r line ; do
   table_name=$(echo $line | awk '{print $3}')
-  sed -n "/^CREATE TABLE \`$table_name\`/,/;/p" $SQL_FILE >> $LOCAL_SCHEMA
+  sed -n "/^CREATE TABLE $table_name/,/;/p" $SQL_FILE >> $LOCAL_SCHEMA
 done
 
 # Compare the schemas
