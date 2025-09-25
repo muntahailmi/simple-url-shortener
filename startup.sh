@@ -34,7 +34,7 @@ LOCAL_SCHEMA="/tmp/local_schema.sql"
 # Extract the remote database schema
 mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -D "$DB_NAME" -e "SHOW TABLES;" | grep -v Tables_in_ > tables.txt
 for table in $(cat tables.txt); do
-  mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -D "$DB_NAME" -e "SHOW CREATE TABLE $table;" >> $REMOTE_SCHEMA
+  mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -D "$DB_NAME" -e "SHOW CREATE TABLE $table;" --raw -N --batch | cut -f2 >> $REMOTE_SCHEMA
 done
 
 # Extract the local database schema
