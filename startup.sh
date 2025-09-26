@@ -48,6 +48,7 @@ if diff $REMOTE_SCHEMA $LOCAL_SCHEMA > /dev/null; then
   echo "Schemas match. Skipping the import."
 else
   echo "Schemas do not match. Importing the database."
+  diff $REMOTE_SCHEMA $LOCAL_SCHEMA
   mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -D "$DB_NAME" < $SQL_FILE
 fi
 
