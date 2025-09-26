@@ -47,7 +47,7 @@
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>URL Shortener Test</title>
+                    <title>URL Shortener</title>
                     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
                 </head>
                 <body>
@@ -55,7 +55,7 @@
                         <img src="images/image.jpg" style="width: 100%; position: absolute; top: 0; left: 0;">
                     </div>
                     <div class="container mt-5">
-                        <h2>URL Portener</h2>
+                        <h2>URL Portener Test</h2>
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="url">Enter URL:</label>
