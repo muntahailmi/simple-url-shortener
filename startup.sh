@@ -10,10 +10,10 @@ sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
 echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Connect and setup database credentials
-DB_PASSWORD="{DB_PASS}"
-DB_HOST="{DB_HOST}"
-DB_NAME="{DB_NAME}"
-DB_USER="admin"
+DB_PASSWORD="${DB_PASS}"
+DB_HOST="${DB_HOST}"
+DB_NAME="${DB_NAME}"
+DB_USER="${DB_USER}"
 
 # Temporary files
 REMOTE_SCHEMA="/tmp/remote_schema.sql"
@@ -34,13 +34,13 @@ LOCAL_SCHEMA="/tmp/local_schema.sql"
 # Extract the remote database schema
 mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -D "$DB_NAME" -e "SHOW TABLES;" | grep -v Tables_in_ > tables.txt
 for table in $(cat tables.txt); do
-  mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -D "$DB_NAME" -e "SHOW CREATE TABLE $table;" >> $REMOTE_SCHEMA
+  mysql -u $DB_USER -p"$DB_PASSWORD" -h "$DB_HOST" -P 3306 -D "$DB_NAME" -e "SHOW CREATE TABLE $table;" --raw -N --batch | cut -f2 >> $REMOTE_SCHEMA
 done
 
 # Extract the local database schema
 grep -E "^CREATE TABLE" $SQL_FILE | while read -r line ; do
   table_name=$(echo $line | awk '{print $3}')
-  sed -n "/^CREATE TABLE \`$table_name\`/,/;/p" $SQL_FILE >> $LOCAL_SCHEMA
+  sed -n "/^CREATE TABLE $table_name/,/;/p" $SQL_FILE | sed "s/;//" >> $LOCAL_SCHEMA
 done
 
 # Compare the schemas
