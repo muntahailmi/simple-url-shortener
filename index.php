@@ -52,10 +52,10 @@
                 </head>
                 <body>
                     <div style="width: 100%; height: 400px; overflow: hidden; position: relative;">
-                        <img src="images/image.jpg" style="width: 100%; position: absolute; top: 0; left: 0;">
+                        <img src="images/image.jpg?v=2" style="width: 100%; position: absolute; top: 0; left: 0;">
                     </div>
                     <div class="container mt-5">
-                        <h2>URL Portener Test</h2>
+                        <h2>URL Portener [New Feature]</h2>
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="url">Enter URL:</label>
