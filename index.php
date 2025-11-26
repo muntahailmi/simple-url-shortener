@@ -38,10 +38,10 @@
         } else {
             if(isset($_POST['url']) && !empty($_POST['url'])) {
                 $url = $_POST['url'];
-                $currentDomain = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-                $currentDomain .= "://$_SERVER[HTTP_HOST]";
+                // $currentDomain = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+                // $currentDomain .= "://$_SERVER[HTTP_HOST]";
                 // header("Location: $currentDomain/$url");
-                header("Location: $currentDomain/create/".bin2hex($url));
+                header("Location: /create/".bin2hex($url));
                 exit;
             } else {
                 // Show URL shortener form
@@ -51,7 +51,7 @@
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>URL Shortener</title>
+                    <title>URL Shortener Dev</title>
                     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
                 </head>
                 <body>
