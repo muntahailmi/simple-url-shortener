@@ -38,10 +38,10 @@
         } else {
             if(isset($_POST['url']) && !empty($_POST['url'])) {
                 $url = $_POST['url'];
-                $currentDomain = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
-                $currentDomain .= "://$_SERVER[HTTP_HOST]";
+                // $currentDomain = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+                // $currentDomain .= "://$_SERVER[HTTP_HOST]";
                 // header("Location: $currentDomain/$url");
-                header("Location: $currentDomain/create/".bin2hex($url));
+                header("Location: /create/".bin2hex($url));
                 exit;
             } else {
                 // Show URL shortener form
