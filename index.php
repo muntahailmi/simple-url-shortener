@@ -9,6 +9,7 @@
     $base_url = "http$s://" . $_SERVER['HTTP_HOST'] . '/';
 
     $db = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname) or error('Could not connect to database.', 500);
+    // $db = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname) or error('Could not connect to database. '.mysqli_connect_error(), 500);
 
     $accepts_json = $_SERVER['HTTP_ACCEPT'] == 'application/json' ? true : false;
     if($accepts_json) {
@@ -18,11 +19,13 @@
     if($_SERVER['REQUEST_URI'] == '/') { doNothing(); exit; }
     if($pw_stats == '' && preg_match('!^/stats(/?.*)$!', $_SERVER['REQUEST_URI']) == 1) { stats(); exit; }
     if($pw_stats != '' && preg_match('!^/stats/' . preg_quote($pw_stats, '!') . '/?$!', $_SERVER['REQUEST_URI']) == 1) { stats(); exit; }
+    if($pw_create == '' && preg_match("!^/create/.+$!", $_SERVER['REQUEST_URI']) == 1) { createLink(); exit; }
+    if($pw_create != '' && preg_match("!^/create/" . preg_quote($pw_create, '!') . "/.+$!", $_SERVER['REQUEST_URI']) == 1) { createLink(); exit; }
     if(preg_match("!^/[$valid_chars]+/?$!", $_SERVER['REQUEST_URI']) == 1) { processSlug(); exit; }
     if($pw_stats == '' && preg_match("!^/[$valid_chars]+/stats/?$!", $_SERVER['REQUEST_URI']) == 1) { slugStats(); exit; }
     if($pw_stats != '' && preg_match("!^/[$valid_chars]+/stats/" . preg_quote($pw_stats, '!') . "/?$!", $_SERVER['REQUEST_URI']) == 1) { slugStats(); exit; }
-    if($pw_create == '' && preg_match("!^/[a-z0-9]+://.+$!", $_SERVER['REQUEST_URI']) == 1) { createLink(); exit; }
-    if($pw_create != '' && preg_match("!^/" . preg_quote($pw_create, '!') . "/[a-z0-9]+://.+$!", $_SERVER['REQUEST_URI']) == 1) { createLink(); exit; }
+    // if($pw_create == '' && preg_match("!^/[a-z0-9]+://.+$!", $_SERVER['REQUEST_URI']) == 1) { createLink(); exit; }
+    // if($pw_create != '' && preg_match("!^/" . preg_quote($pw_create, '!') . "/[a-z0-9]+://.+$!", $_SERVER['REQUEST_URI']) == 1) { createLink(); exit; }
 
     exit;
 
@@ -37,7 +40,8 @@
                 $url = $_POST['url'];
                 $currentDomain = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
                 $currentDomain .= "://$_SERVER[HTTP_HOST]";
-                header("Location: $currentDomain/$url");
+                // header("Location: $currentDomain/$url");
+                header("Location: $currentDomain/create/".bin2hex($url));
                 exit;
             } else {
                 // Show URL shortener form
@@ -52,10 +56,10 @@
                 </head>
                 <body>
                     <div style="width: 100%; height: 400px; overflow: hidden; position: relative;">
-                        <img src="images/image.jpg?v=5" style="width: 100%; position: absolute; top: 0; left: 0;">
+                        <img src="images/image.jpg" style="width: 100%; position: absolute; top: 0; left: 0;">
                     </div>
                     <div class="container mt-5">
-                        <h2>URL Portener Dev</h2>
+                        <h2>URL Portener</h2>
                         <form action="" method="post">
                             <div class="form-group">
                                 <label for="url">Enter URL:</label>
@@ -98,10 +102,12 @@
         global $base_url, $random_chars, $slug_length, $db, $pw_create, $accepts_json;
 
         $url = ltrim($_SERVER['REQUEST_URI'], '/');
+        $url = ltrim($url, 'create/');
 
         if($pw_create != '') {
             $url = preg_replace('!^'. preg_quote($pw_create, '!') . '/(.+)$!', '$1', $url);
         }
+        $url = hex2bin($url);
 
         do {
             $possible_slug = '';
@@ -119,6 +125,7 @@
         $escaped_url = mysqli_real_escape_string($db, $url) or error('Could not escape URL.', 500);
 
         $result = mysqli_query($db, "INSERT INTO links (slug, url, visits, created) VALUES ('$slug', '$escaped_url', 0, NOW())") or error('Could not insert new URL into the database.', 500);
+        // $result = mysqli_query($db, "INSERT INTO links (slug, url, visits, created) VALUES ('$slug', '$escaped_url', 0, NOW())") or error('Could not insert new URL into the database.'.mysqli_error($db), 500);
         if($result == false) error('Inserting into database failed.', 500);
 
         $short_url = $base_url . $slug;
