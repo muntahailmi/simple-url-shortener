@@ -1,0 +1,27 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      DB_HOST: mysql_db
+      DB_NAME: appdb
+      DB_USER: user
+      DB_PASS: password
+    ports:
+      - '8082:80'
+  mysql_db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: pass
+      MYSQL_DATABASE: appdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:
+
