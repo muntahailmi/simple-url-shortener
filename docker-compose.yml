@@ -4,13 +4,13 @@ services:
       context: .
       dockerfile: ./Dockerfile
     environment:
-      DB_HOST: mysql_db
+      DB_HOST: mysql-db
       DB_NAME: appdb
       DB_USER: user
       DB_PASS: password
     ports:
       - '8082:80'
-  mysql_db:
+  mysql-db:
     image: mysql:8.0
     command: --default-authentication-plugin=mysql_native_password
     ports:
